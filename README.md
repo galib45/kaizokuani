@@ -27,13 +27,16 @@
 > ⚠️ Make sure to enable installation from unknown sources in your device settings.
 
 ## 📸 Screenshots
-![Home page](https://github.com/galib45/kaizokuani/blob/main/screenshots/ss1.jpeg?raw=true)
-![Search by title](https://github.com/galib45/kaizokuani/blob/main/screenshots/ss2.jpeg?raw=true)
-![Search results](https://github.com/galib45/kaizokuani/blob/main/screenshots/ss3.jpeg?raw=true)
-![Select episode](https://github.com/galib45/kaizokuani/blob/main/screenshots/ss4.jpeg?raw=true)
-![Play/Download](https://github.com/galib45/kaizokuani/blob/main/screenshots/ss5.jpeg?raw=true)
-![Select quality](https://github.com/galib45/kaizokuani/blob/main/screenshots/ss6.jpeg?raw=true)
-![Streaming episode](https://github.com/galib45/kaizokuani/blob/main/screenshots/ss7.jpeg?raw=true)
+<div style="display: flex; flex-wrap: wrap; justify-content: center;">
+  <img src="https://github.com/galib45/kaizokuani/blob/main/screenshots/ss1.jpeg?raw=true" alt="Home page" style="width: 30%;">
+  <img src="https://github.com/galib45/kaizokuani/blob/main/screenshots/ss2.jpeg?raw=true" alt="Search by title" style="width: 30%;">
+  <img src="https://github.com/galib45/kaizokuani/blob/main/screenshots/ss3.jpeg?raw=true" alt="Search results" style="width: 30%;">
+  <img src="https://github.com/galib45/kaizokuani/blob/main/screenshots/ss4.jpeg?raw=true" alt="Select episode" style="width: 30%;">
+  <img src="https://github.com/galib45/kaizokuani/blob/main/screenshots/ss5.jpeg?raw=true" alt="Play/Download" style="width: 30%;">
+  <img src="https://github.com/galib45/kaizokuani/blob/main/screenshots/ss6.jpeg?raw=true" alt="Select quality" style="width: 30%;">
+  <img src="https://github.com/galib45/kaizokuani/blob/main/screenshots/ss7.jpeg?raw=true" alt="Streaming episode" style="width: 100%;">
+</div>
+
 
 ## 🧾 License
 
