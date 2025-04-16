@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <View android:id="@id/exo_controls_background"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#98000000"/>
+
+    <!-- Customized Seekbar with time line-->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:orientation="horizontal"
+        android:paddingHorizontal="48dp">
+
+        <TextView
+            android:id="@id/exo_position"
+            style="@style/ExoStyledControls.TimeText.Position"
+            android:layout_gravity="center"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp" />
+
+        <androidx.media3.ui.DefaultTimeBar
+            android:id="@id/exo_progress"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            app:bar_gravity="center" />
+
+        <TextView
+            android:id="@id/exo_duration"
+            style="@style/ExoStyledControls.TimeText.Duration"
+            android:layout_gravity="center"
+            android:paddingStart="8dp"
+            android:paddingEnd="0dp"/>
+
+        <ImageButton
+            android:id="@id/exo_playback_speed"
+            style="@style/ExoStyledControls.Button.Bottom"
+            android:src="@drawable/ic_speed"
+            android:tint="@color/white"
+            android:background="@null"
+            android:contentDescription="@string/speed_button_content_description"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@id/exo_center_controls"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@android:color/transparent"
+        android:gravity="center"
+        android:padding="24dp"
+        android:clipToPadding="false"
+        android:layoutDirection="ltr">
+
+        <ImageButton android:id="@id/exo_prev"
+            style="@style/ExoStyledControls.Button.Center.Previous"/>
+
+        <include layout="@layout/exo_player_control_rewind_button" />
+
+        <ImageButton android:id="@id/exo_play_pause"
+            style="@style/ExoStyledControls.Button.Center.PlayPause"/>
+
+        <include layout="@layout/exo_player_control_ffwd_button" />
+
+        <ImageButton android:id="@id/exo_next"
+            style="@style/ExoStyledControls.Button.Center.Next"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingVertical="24dp"
+        android:paddingHorizontal="48dp">
+
+        <TextView
+            android:id="@+id/exo_title"
+            android:layout_gravity="center"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            />
+
+    </LinearLayout>
+
+
+</merge>

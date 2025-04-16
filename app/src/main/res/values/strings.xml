@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Kaizoku-Ani</string>
+    <string name="speed_button_content_description">Playback Speed</string>
+</resources>
