@@ -42,3 +42,7 @@
 
 This project is released under [The Unlicense](LICENSE).  
 You are free to do whatever you want with it.
+
+### 🧠 Acknowledgements
+
+This project uses the anime searching and video URL extraction logic adapted from [**pystardust/ani-cli**](https://github.com/pystardust/ani-cli). Big thanks for the great work!
