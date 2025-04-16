@@ -27,13 +27,13 @@
 > ⚠️ Make sure to enable installation from unknown sources in your device settings.
 
 ## 📸 Screenshots
-![Home page](https://github.com/galib45/kaizokuani/blob/main/ss1.jpeg?raw=true)
-![Search by title](https://github.com/galib45/kaizokuani/blob/main/ss2.jpeg?raw=true)
-![Search results](https://github.com/galib45/kaizokuani/blob/main/ss3.jpeg?raw=true)
-![Select episode](https://github.com/galib45/kaizokuani/blob/main/ss4.jpeg?raw=true)
-![Play/Download](https://github.com/galib45/kaizokuani/blob/main/ss5.jpeg?raw=true)
-![Select quality](https://github.com/galib45/kaizokuani/blob/main/ss6.jpeg?raw=true)
-![Streaming episode](https://github.com/galib45/kaizokuani/blob/main/ss7.jpeg?raw=true)
+![Home page](https://github.com/galib45/kaizokuani/blob/main/screenshots/ss1.jpeg?raw=true)
+![Search by title](https://github.com/galib45/kaizokuani/blob/main/screenshots/ss2.jpeg?raw=true)
+![Search results](https://github.com/galib45/kaizokuani/blob/main/screenshots/ss3.jpeg?raw=true)
+![Select episode](https://github.com/galib45/kaizokuani/blob/main/screenshots/ss4.jpeg?raw=true)
+![Play/Download](https://github.com/galib45/kaizokuani/blob/main/screenshots/ss5.jpeg?raw=true)
+![Select quality](https://github.com/galib45/kaizokuani/blob/main/screenshots/ss6.jpeg?raw=true)
+![Streaming episode](https://github.com/galib45/kaizokuani/blob/main/screenshots/ss7.jpeg?raw=true)
 
 ## 🧾 License
 
