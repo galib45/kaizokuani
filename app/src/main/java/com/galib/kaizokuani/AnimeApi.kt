@@ -131,7 +131,7 @@ object AnimeApi {
         sendGQLQuery(variables = variables, query = gqlQuery, callback = callback)
     }
 
-    suspend fun getEpisodeLink(decodedSourceUrl: String) : String {
+    fun getEpisodeLink(decodedSourceUrl: String) : String {
         val url = "https://allanime.day$decodedSourceUrl"
 
         val request = Request.Builder().url(url).build()

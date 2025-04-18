@@ -18,34 +18,6 @@ object AppData {
     // Define the key for search history
     private val SEARCH_HISTORY = stringSetPreferencesKey("search_history")
     private val SHOW_ENGLISH_NAME = booleanPreferencesKey("show_english_name")
-    private val POPULAR_ANIME_RESULTS_SAVED_AT = longPreferencesKey("popular_anime_results_saved_at")
-    private val POPULAR_ANIME_RESULTS = stringSetPreferencesKey("popular_anime_results")
-
-    fun getPopularAnimeResultsSavedDate(context: Context) : Flow<Long> {
-        return context.dataStore.data.map { appData ->
-            appData[POPULAR_ANIME_RESULTS_SAVED_AT] ?: 0L
-        }
-    }
-
-    suspend fun setPopularAnimeResultsSavedDate(context: Context, epochDay: Long) {
-        context.dataStore.edit { appData ->
-            appData[POPULAR_ANIME_RESULTS_SAVED_AT] = epochDay
-        }
-    }
-
-    fun getPopularAnimeResults(context: Context) : Flow<Set<String>> {
-        return context.dataStore.data.map { appData ->
-            appData[POPULAR_ANIME_RESULTS] ?: emptySet()
-        }
-    }
-
-    suspend fun savePopularAnimeResults(context: Context, type: String, results: List<PopularAnimeResult>) {
-        context.dataStore.edit { appData ->
-            val resultsSet = appData[POPULAR_ANIME_RESULTS]?.toMutableSet() ?: mutableSetOf()
-            resultsSet.add("$type>>${JsonParser.json.encodeToString(results)}")
-            appData[POPULAR_ANIME_RESULTS] = resultsSet
-        }
-    }
 
     suspend fun setShowEnglishName(context: Context, value: Boolean) {
         context.dataStore.edit { appData ->

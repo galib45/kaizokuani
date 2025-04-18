@@ -15,6 +15,7 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.widget.Toast
 import androidx.core.content.FileProvider
+import androidx.core.net.toUri
 import java.io.File
 
 object Util1DM {
@@ -162,7 +163,7 @@ object Util1DM {
         intent.component = ComponentName(packageName.toString(), DOWNLOADER_ACTIVITY_NAME_1DM)
         intent.putExtra(EXTRA_SECURE_URI, secureUri)
         if (isEmpty(urlAndFileNames)) {
-            intent.data = Uri.parse(url)
+            intent.data = url?.toUri()
             if (!TextUtils.isEmpty(referer)) intent.putExtra(EXTRA_REFERER, referer)
             if (!TextUtils.isEmpty(userAgent)) intent.putExtra(EXTRA_USERAGENT, userAgent)
             if (!TextUtils.isEmpty(cookies)) intent.putExtra(EXTRA_COOKIES, cookies)
@@ -179,7 +180,7 @@ object Util1DM {
             if (urls.size > 0) {
                 intent.putExtra(EXTRA_URL_LIST, urls)
                 intent.putExtra(EXTRA_URL_FILENAME_LIST, names)
-                intent.data = Uri.parse(urls[0])
+                intent.data = urls[0].toUri()
             }
         }
         if (!isEmpty(headers)) {
