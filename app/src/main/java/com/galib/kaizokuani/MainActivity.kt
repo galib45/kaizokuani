@@ -59,6 +59,7 @@ class MainActivity : ComponentActivity() {
 fun App() {
     val navController = rememberNavController()
     val snackbarHostState = remember { SnackbarHostState() }
+    var showBottomBar by rememberSaveable { mutableStateOf(true) }
 
     val popularAnimeResultSaver = Saver<List<PopularAnimeResult>, String>(
         save = { JsonParser.json.encodeToString(it) },
@@ -103,11 +104,13 @@ fun App() {
         Scaffold(
             snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
             bottomBar = {
-                BottomNavigationComponent { index ->
-                    when(index) {
-                        0 -> { navController.navigate(Explore) }
-                        1 -> { navController.navigate(Profile) }
-                        else -> {}
+                if (showBottomBar) {
+                    BottomNavigationComponent { index ->
+                        when(index) {
+                            0 -> { navController.navigate(Explore) }
+                            1 -> { navController.navigate(Profile) }
+                            else -> {}
+                        }
                     }
                 }
             },
@@ -121,12 +124,14 @@ fun App() {
                 // startDestination = AnimeDetails("vDTSJHSpYnrkZnAvG"),
             ) {
                 composable<Explore> {
+                    showBottomBar = true
                     ExploreScreen(navController = navController, results = listOf(
                         resultsAllTime, resultsDaily,
                         resultsWeekly, resultsMonthly
                     ))
                 }
                 composable<AnimeSearch> { backStackEntry ->
+                    showBottomBar = true
                     val animeSearch: AnimeSearch = backStackEntry.toRoute()
                     AnimeSearchScreen(
                         animeSearch = animeSearch,
@@ -134,6 +139,7 @@ fun App() {
                     )
                 }
                 composable<AnimeDetails> { backStackEntry ->
+                    showBottomBar = true
                     val animeDetails: AnimeDetails = backStackEntry.toRoute()
                     AnimeDetailsScreen(
                         animeDetails = animeDetails,
@@ -142,6 +148,7 @@ fun App() {
                     )
                 }
                 composable<VideoPlayer> { backStackEntry ->
+                    showBottomBar = false
                     val videoPlayer: VideoPlayer = backStackEntry.toRoute()
                     VideoPlayerScreen(
                         videoPlayer = videoPlayer,
@@ -149,6 +156,7 @@ fun App() {
                     )
                 }
                 composable<Profile> {
+                    showBottomBar = true
                     ProfileScreen(navController = navController)
                 }
             }
