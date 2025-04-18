@@ -1,4 +1,4 @@
-# Kaizoku-Ani v1.0
+# Kaizoku-Ani v2.0.2
 
 **Kaizoku-Ani** is a minimalist anime app for Android that lets you **search**, **stream**, and **download** your favorite anime with ease.
 
@@ -29,6 +29,7 @@
 ## 📸 Screenshots
 <div style="display: flex; flex-wrap: wrap; justify-content: center;">
   <img src="https://github.com/galib45/kaizokuani/blob/main/screenshots/ss1.jpeg?raw=true" alt="Home page" style="width: 30%;">
+  <img src="https://github.com/galib45/kaizokuani/blob/main/screenshots/ss8.jpeg?raw=true" alt="Profile page" style="width: 30%;">
   <img src="https://github.com/galib45/kaizokuani/blob/main/screenshots/ss2.jpeg?raw=true" alt="Search by title" style="width: 30%;">
   <img src="https://github.com/galib45/kaizokuani/blob/main/screenshots/ss3.jpeg?raw=true" alt="Search results" style="width: 30%;">
   <img src="https://github.com/galib45/kaizokuani/blob/main/screenshots/ss4.jpeg?raw=true" alt="Select episode" style="width: 30%;">
