@@ -1,6 +1,7 @@
 package com.galib.kaizokuani.components
 
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
@@ -20,7 +21,10 @@ fun BottomNavigationComponent(onClick: (Int) -> Unit) {
         BottomNavigationItem("Explore", "Search Anime", ExploreIcon),
         BottomNavigationItem("Profile", "History and Settings", PersonIcon)
     )
-    NavigationBar {
+    NavigationBar(
+        containerColor = MaterialTheme.colorScheme.surface,
+        contentColor = MaterialTheme.colorScheme.onSurface
+    ) {
         items.forEachIndexed { index, item ->
             NavigationBarItem(
                 selected = selected == index,
