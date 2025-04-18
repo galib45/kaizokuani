@@ -1,12 +1,10 @@
 package com.galib.kaizokuani.screens
 
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -27,6 +25,8 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.fromHtml
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import coil3.compose.AsyncImage
@@ -78,16 +78,13 @@ fun AnimeDetailsScreen(
     )
     var info by rememberSaveable(stateSaver = animeInfoSaver) { mutableStateOf<ShowInfo?>(null) }
     var episodeNo by remember { mutableStateOf("") }
+    var translationType by remember { mutableStateOf("") }
     var screenState by rememberSaveable { mutableStateOf(ScreenState.GET_INFO) }
     var action by remember { mutableStateOf<Action?>(null) }
     var jobs = remember { mutableStateListOf<Job>() }
     var links = remember { mutableStateListOf<EpisodeLink>() }
     var qualities = remember { mutableStateListOf<String>() }
     val context = LocalContext.current
-
-//    DialogListPickerComponent("Select Quality", listOf("Mp4", "1080p", "480p", "720p")) { quality ->
-//        Log.e("aniclidroid", quality)
-//    }
 
     LaunchedEffect(Unit) {
         AnimeApi.getAnimeInfo(animeDetails.id!!) { response ->
@@ -99,41 +96,38 @@ fun AnimeDetailsScreen(
     if (screenState == ScreenState.GET_INFO) LoadingPageComponent()
 
     info?.let { info ->
-        Box(
+        Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(top = 64.dp)
-                .padding(horizontal = 16.dp)
+                .padding(16.dp)
+                .verticalScroll(rememberScrollState())
         ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .verticalScroll(rememberScrollState())
-            ) {
-                Text(text = info.name, style = AppTypography.titleLarge)
-                if (info.englishName != null) Text(
-                    text = info.englishName,
-                    style = AppTypography.bodyMedium
+            Text(text = info.name, style = AppTypography.titleLarge)
+            if (info.englishName != null) Text(
+                text = info.englishName,
+                style = AppTypography.bodyMedium
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+            Row {
+                AsyncImage(
+                    model = info.thumbnail,
+                    contentDescription = "thumbnail of ${info.name}",
+                    modifier = Modifier.height(200.dp),
                 )
-                Spacer(modifier = Modifier.height(16.dp))
-                Row {
-                    AsyncImage(
-                        model = info.thumbnail,
-                        contentDescription = "thumbnail of ${info.name}",
-                        modifier = Modifier.height(200.dp),
-                    )
-                    Spacer(modifier = Modifier.width(16.dp))
-                    AnimeInfoCardComponent(info)
-                }
-                Spacer(modifier = Modifier.height(16.dp))
-                EpisodesComponent(info, onEpisodeClick = { ep ->
-                    episodeNo = ep
-                    screenState = ScreenState.CHOOSE_ACTION
-                })
-                Text(text = "Description")
-                Text(style = AppTypography.bodyMedium, text = info.description?.replace("<br>", "")
-                    ?: "No description available")
+                Spacer(modifier = Modifier.width(16.dp))
+                AnimeInfoCardComponent(info)
             }
+            Spacer(modifier = Modifier.height(16.dp))
+            EpisodesComponent(info, onEpisodeClick = { ep, type ->
+                episodeNo = ep
+                translationType = type
+                screenState = ScreenState.CHOOSE_ACTION
+            })
+            Spacer(modifier = Modifier.height(16.dp))
+            Text(text = "Description")
+            Text(
+                style = AppTypography.bodyMedium,
+                text = AnnotatedString.fromHtml(info.description ?: "No description available") )
         }
 
         if (screenState == ScreenState.GET_LINKS) LoadingDialogComponent(title = "Getting links")
@@ -154,7 +148,11 @@ fun AnimeDetailsScreen(
 
         fun getLinks() {
             screenState = ScreenState.GET_LINKS
-            AnimeApi.getSourceUrls(id = info.id, episodeNo = episodeNo) { response ->
+            AnimeApi.getSourceUrls(
+                id = info.id,
+                episodeNo = episodeNo,
+                translationType = translationType
+            ) { response ->
                 val sourceUrls = JsonParser.parseSourceUrls(response)
                 links.clear()
 

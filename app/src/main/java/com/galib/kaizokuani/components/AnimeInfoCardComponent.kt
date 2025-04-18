@@ -8,6 +8,13 @@ import com.galib.ui.theme.AppTypography
 
 @Composable
 fun AnimeInfoCardComponent(info: ShowInfo) {
+    val availableEpisodes: Int = info.availableEpisodesDetail?.sub?.size ?: 0
+
+    var episodesText = when(info.status) {
+        "Finished" -> "$availableEpisodes/$availableEpisodes"
+        else -> "$availableEpisodes/?"
+    }
+
     Column {
         Text(style = AppTypography.bodyMedium, text = "Status: ${info.status ?: "?"}")
         Text(style = AppTypography.bodyMedium, text = "Score: ${info.score ?: "?"}")
@@ -18,7 +25,7 @@ fun AnimeInfoCardComponent(info: ShowInfo) {
         )
         Text(
             style = AppTypography.bodyMedium,
-            text = "Episodes: ${info.availableEpisodesDetail?.sub?.size}/${info.episodeCount ?: "?"}"
+            text = "Episodes: $episodesText"
         )
         Text(style = AppTypography.bodyMedium, text = "Duration: ${info.episodeDuration?.toInt()
             ?.div(60000)} min")

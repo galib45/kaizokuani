@@ -7,6 +7,7 @@ import kotlinx.serialization.Serializable
 data class AnimeSearchResult (
     @SerialName("_id") val id: String,
     val name: String,
+    val englishName: String?
 )
 
 @Serializable
@@ -44,4 +45,12 @@ data class AvailableEpisodesDetail(
 data class EpisodeLink(
     val link: String,
     val resolutionStr: String
+)
+
+@Serializable
+data class PopularAnimeResult(
+    @SerialName("_id") val id: String,
+    val name: String,
+    val englishName: String?,
+    val thumbnail: String?
 )

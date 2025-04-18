@@ -21,9 +21,9 @@ import com.galib.ui.theme.AppTypography
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun EpisodesComponent(info: ShowInfo, onEpisodeClick: (String) -> Unit) {
+fun EpisodesComponent(info: ShowInfo, onEpisodeClick: (String, String) -> Unit) {
     Text(style = AppTypography.bodyLarge, text = "Available Episodes")
-    Text(style = AppTypography.bodyMedium, text = "SUB")
+    Text(style = AppTypography.bodySmall, text = "SUB")
     Spacer(modifier = Modifier.height(8.dp))
     FlowRow(
         modifier = Modifier.fillMaxWidth(),
@@ -36,7 +36,26 @@ fun EpisodesComponent(info: ShowInfo, onEpisodeClick: (String) -> Unit) {
                 modifier = Modifier
                     .clip(shape = RoundedCornerShape(size = 4.dp))
                     .background(MaterialTheme.colorScheme.surfaceBright)
-                    .clickable(onClick = { onEpisodeClick(ep) })
+                    .clickable(onClick = { onEpisodeClick(ep, "sub") })
+                    .padding(6.dp)
+            )
+        }
+    }
+    Spacer(modifier = Modifier.height(8.dp))
+    Text(style = AppTypography.bodySmall, text = "DUB")
+    Spacer(modifier = Modifier.height(8.dp))
+    FlowRow(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+    ) {
+        info.availableEpisodesDetail?.dub?.forEach { ep ->
+            Text(
+                text = ep,
+                modifier = Modifier
+                    .clip(shape = RoundedCornerShape(size = 4.dp))
+                    .background(MaterialTheme.colorScheme.surfaceBright)
+                    .clickable(onClick = { onEpisodeClick(ep, "dub") })
                     .padding(6.dp)
             )
         }

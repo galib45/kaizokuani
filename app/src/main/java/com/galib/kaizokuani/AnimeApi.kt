@@ -52,7 +52,7 @@ object AnimeApi {
     fun searchAnime(query: String, callback: (String) -> Unit) {
         val variables = """{
             "search": {
-                "allowAdult": false,
+                "allowAdult": true,
                 "allowUnknown": false,
                 "query": "$query"
             },
@@ -78,7 +78,7 @@ object AnimeApi {
                     countryOrigin: ${'$'}countryOrigin) 
                     {
                         edges {
-                            _id name
+                            _id name englishName
                         }
                 }
             }
@@ -139,5 +139,38 @@ object AnimeApi {
             if (!response.isSuccessful) throw IOException("Unexpected code $response")
             return response.body!!.string()
         }
+    }
+
+    fun getPopularAnime(dateRange: Int, callback: (String) -> Unit) {
+        val variables = """
+            {
+              "size": 20,
+              "page": 1,
+              "dateRange": $dateRange,
+              "type": "anime",
+              "allowAdult": false,
+              "allowUnknown": false
+            }
+        """.trimIndent()
+        val gqlQuery = """
+            query queryPopular(
+            	${'$'}size: Int!, ${'$'}page: Int, ${'$'}dateRange: Int
+            	${'$'}type: VaildPopularTypeEnumType!
+            	${'$'}allowAdult: Boolean, ${'$'}allowUnknown: Boolean
+            ) {
+              queryPopular(
+                size: ${'$'}size, page: ${'$'}page, type: ${'$'}type
+                dateRange: ${'$'}dateRange
+                allowUnknown: ${'$'}allowUnknown, allowAdult: ${'$'}allowAdult
+              ) {
+                recommendations {
+                  anyCard {
+                    _id name englishName thumbnail
+                  }
+                }
+              }
+            }
+        """.trimIndent()
+        sendGQLQuery(variables = variables, query = gqlQuery, callback = callback)
     }
 }

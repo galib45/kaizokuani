@@ -54,4 +54,27 @@ object JsonParser {
         val links = root?.get("links") as? JsonArray
         return json.decodeFromString(json.encodeToString(links?.get(0)))
     }
+
+    fun parsePopularAnimeResult(jsonString: String): List<PopularAnimeResult> {
+        var results = mutableListOf<PopularAnimeResult>()
+        val root = json.parseToJsonElement(jsonString) as? JsonObject
+        val data = root?.get("data") as? JsonObject
+        val queryPopular = data?.get("queryPopular") as? JsonObject
+        val recommendations = queryPopular?.get("recommendations") as? JsonArray
+        recommendations?.forEach {
+            val recommendation = it as? JsonObject
+            val anyCard = recommendation?.get("anyCard") as? JsonObject
+            var result = json.decodeFromString<PopularAnimeResult>(json.encodeToString(anyCard))
+            if (result.thumbnail?.startsWith("https") == false) {
+                result = PopularAnimeResult(
+                    id = result.id,
+                    name = result.name,
+                    englishName = result.englishName,
+                    thumbnail = "https://wp.youtube-anime.com/aln.youtube-anime.com/${result.thumbnail}"
+                )
+            }
+            results.add(result)
+        }
+        return results
+    }
 }

@@ -16,6 +16,7 @@ coilVersion = "3.1.0"
 datastore = "1.1.4"
 workRuntimeKtx = "2.10.0"
 exoplayerVersion = "1.6.1"
+uiTooling = "1.7.8"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -43,6 +44,7 @@ work-runtime-ktx = { group = "androidx.work", name = "work-runtime-ktx", version
 media3-exoplayer = { group = "androidx.media3", name = "media3-exoplayer", version.ref = "exoplayerVersion" }
 media3-ui = { group = "androidx.media3", name = "media3-ui", version.ref = "exoplayerVersion" }
 media3-common = { group = "androidx.media3", name = "media3-common", version.ref = "exoplayerVersion" }
+ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling", version.ref = "uiTooling" }
 
 
 [plugins]

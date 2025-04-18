@@ -16,7 +16,6 @@ import android.text.TextUtils
 import android.widget.Toast
 import androidx.core.content.FileProvider
 import java.io.File
-import java.util.*
 
 object Util1DM {
     private const val PACKAGE_NAME_1DM_PLUS = "idm.internet.download.manager.plus"
