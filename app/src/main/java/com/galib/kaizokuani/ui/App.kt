@@ -165,7 +165,4 @@ data class VideoPlaybackScreen (
 )
 
 @Serializable
-object ProfileScreen
-
-@Serializable
 object ExploreScreen
