@@ -14,30 +14,25 @@ import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.galib.kaizokuani.data.AppData
+import com.galib.kaizokuani.data.AppDataManager
 import com.galib.ui.theme.AppTypography
-import kotlinx.coroutines.launch
 
 @Composable
 fun ProfileScreenComposable(navController: NavController) {
-    var showEnglishName by rememberSaveable { mutableStateOf(false) }
-    val context = LocalContext.current
-    val scope = rememberCoroutineScope()
+    val appData = AppDataManager.appData.collectAsState()
+    var checked by remember { mutableStateOf(false) }
 
     LaunchedEffect(Unit) {
-        AppData.getShowEnglishName(context).collect {
-            showEnglishName = it
-        }
+        checked = appData.value.showEnglishName
     }
 
     Column(
@@ -57,12 +52,10 @@ fun ProfileScreenComposable(navController: NavController) {
         ) {
             Text(text = "Show English Name")
             Switch(
-                checked = showEnglishName,
+                checked = checked,
                 onCheckedChange = {
-                    showEnglishName = showEnglishName.not()
-                    scope.launch {
-                        AppData.setShowEnglishName(context, showEnglishName)
-                    }
+                    AppDataManager.toggleShowEnglishName()
+                    checked = appData.value.showEnglishName
                 },
             )
         }

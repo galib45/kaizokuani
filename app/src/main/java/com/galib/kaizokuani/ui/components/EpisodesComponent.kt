@@ -22,6 +22,7 @@ import com.galib.ui.theme.AppTypography
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun EpisodesComponent(info: ShowInfo, onEpisodeClick: (String, String) -> Unit) {
+
     Text(style = AppTypography.bodyLarge, text = "Available Episodes")
     Text(style = AppTypography.bodySmall, text = "SUB")
     Spacer(modifier = Modifier.height(8.dp))

@@ -11,16 +11,22 @@ import androidx.activity.compose.BackHandler
 import androidx.annotation.OptIn
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.net.toUri
@@ -41,13 +47,12 @@ fun VideoPlaybackScreenComposable(videoPlaybackScreen: VideoPlaybackScreen, navC
     if (videoPlaybackScreen.url == null) Text(text = "No url specified")
 
     val title = rememberSaveable { videoPlaybackScreen.title ?: "Untitled" }
-    val url = rememberSaveable { videoPlaybackScreen.url!! }
 
     val context = LocalContext.current
     val activity = context as Activity
     val lifeCycleOwner = LocalLifecycleOwner.current
     var exoPlayer by remember { mutableStateOf<ExoPlayer?>(null) }
-    var contentPosition by rememberSaveable { mutableStateOf(0L) }
+    var contentPosition by rememberSaveable { mutableLongStateOf(0L) }
 
     val playerView = PlayerView(context)
     playerView.useController = true
@@ -60,7 +65,7 @@ fun VideoPlaybackScreenComposable(videoPlaybackScreen: VideoPlaybackScreen, navC
         activity.window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
     }
 
-   DisposableEffect(lifeCycleOwner) {
+    DisposableEffect(lifeCycleOwner) {
         val observer = LifecycleEventObserver { _, event ->
             when(event) {
                 Lifecycle.Event.ON_START -> {
@@ -121,6 +126,14 @@ fun VideoPlaybackScreenComposable(videoPlaybackScreen: VideoPlaybackScreen, navC
             update = { view ->
                 val titleTextView = view.findViewById<TextView>(R.id.exo_title)
                 titleTextView.text = title
+                val composeView = view.findViewById<ComposeView>(R.id.exo_title_compose_view)
+                composeView.setContent {
+                    IconButton(onClick = {
+                        navController.popBackStack()
+                    }) {
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = null)
+                    }
+                }
             },
             modifier = Modifier
                 .fillMaxSize()

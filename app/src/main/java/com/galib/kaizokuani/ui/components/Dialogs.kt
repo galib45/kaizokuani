@@ -100,8 +100,9 @@ fun DialogListPickerComponent(
     title: String,
     items: List<String>,
     onSelect: (Int) -> Unit,
+    onDismissRequest: () -> Unit
 ) {
-    Dialog (onDismissRequest = {}) {
+    Dialog (onDismissRequest = onDismissRequest) {
         Card(
             modifier = Modifier
                 .fillMaxWidth()

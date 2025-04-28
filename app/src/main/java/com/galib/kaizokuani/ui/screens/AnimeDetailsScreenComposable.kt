@@ -135,14 +135,21 @@ fun AnimeDetailsScreenComposable(
         if (screenState == ScreenState.CHOOSE_QUALITY) {
             DialogListPickerComponent("Select Quality", qualities, onSelect = { index ->
                 val url = links[index].link
+                val title = "${info.name} Episode $episodeNo"
                 val filename = "${info.name} Episode $episodeNo.mp4"
 
                 screenState = ScreenState.WAIT_FOR_ACTION
                 when(action) {
-                    Action.PLAY -> navController.navigate(route = VideoPlaybackScreen(url = url, title=filename))
+                    Action.PLAY -> navController.navigate(route = VideoPlaybackScreen(
+                        url = url, title = title,
+                        episodeNo = episodeNo, id = info.id,
+                        translationType = translationType
+                    ))
                     Action.DOWNLOAD -> downloadFile(context, url, filename)
                     null -> TODO()
                 }
+            }, onDismissRequest = {
+                screenState = ScreenState.WAIT_FOR_ACTION
             })
         }
 

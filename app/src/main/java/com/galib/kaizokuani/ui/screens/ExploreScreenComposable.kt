@@ -7,17 +7,11 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.galib.kaizokuani.data.AppData
+import com.galib.kaizokuani.data.AppDataManager
 import com.galib.kaizokuani.ui.AnimeDetailsScreen
 import com.galib.kaizokuani.ui.AnimeSearchScreen
 import com.galib.kaizokuani.ui.components.LoadingPageComponent
@@ -32,14 +26,6 @@ private val categories = listOf<String>(
 @Composable
 fun ExploreScreenComposable(navController: NavController, viewModel: ExploreScreenViewModel) {
     val results = viewModel.popularAnimeResults.collectAsState().value
-    val context = LocalContext.current
-    var showEnglishName by rememberSaveable { mutableStateOf(false) }
-
-    LaunchedEffect(Unit) {
-        AppData.getShowEnglishName(context).collect {
-            showEnglishName = it
-        }
-    }
 
     Column {
         SearchBarComponent() { query ->
@@ -56,7 +42,7 @@ fun ExploreScreenComposable(navController: NavController, viewModel: ExploreScre
                 categories.forEachIndexed { index, category ->
                     results[index]?.let { result ->
                         Text(text = "Popular Anime: $category")
-                        PopularAnimeResultsComponent(result, showEnglishName) {
+                        PopularAnimeResultsComponent(result, AppDataManager.appData.collectAsState().value.showEnglishName) {
                             navController.navigate(route = AnimeDetailsScreen(id = it))
                         }
                     }

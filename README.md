@@ -1,4 +1,4 @@
-# Kaizoku-Ani v2.1.0
+# Kaizoku-Ani v2.3.0
 
 **Kaizoku-Ani** is a minimalist anime app for Android that lets you **search**, **stream**, and **download** your favorite anime with ease.
 

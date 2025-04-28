@@ -78,6 +78,11 @@
         android:paddingVertical="24dp"
         android:paddingHorizontal="48dp">
 
+        <androidx.compose.ui.platform.ComposeView
+            android:id="@+id/exo_title_compose_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
         <TextView
             android:id="@+id/exo_title"
             android:layout_gravity="center"

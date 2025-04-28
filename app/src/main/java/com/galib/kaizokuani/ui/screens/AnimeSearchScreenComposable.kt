@@ -14,11 +14,10 @@ import androidx.compose.runtime.saveable.Saver
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import com.galib.kaizokuani.data.AnimeApi
 import com.galib.kaizokuani.data.AnimeSearchResult
-import com.galib.kaizokuani.data.AppData
+import com.galib.kaizokuani.data.AppDataManager
 import com.galib.kaizokuani.data.JsonParser
 import com.galib.kaizokuani.ui.AnimeDetailsScreen
 import com.galib.kaizokuani.ui.AnimeSearchScreen
@@ -40,10 +39,9 @@ fun AnimeSearchScreenComposable(
     )
     var results by rememberSaveable(stateSaver = animeSearchResultSaver) { mutableStateOf<List<AnimeSearchResult>>(emptyList()) }
     var searching by remember { mutableStateOf(false) }
-    val context = LocalContext.current
 
-    suspend fun search(query: String) {
-        AppData.addHistory(context, query)
+    fun search(query: String) {
+        AppDataManager.appData.value.searchHistory.add(query)
         searching = true
         AnimeApi.searchAnime(query) { response ->
             results = JsonParser.parseAnimeSearchResult(response)

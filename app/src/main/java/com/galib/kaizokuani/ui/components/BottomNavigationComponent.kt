@@ -15,11 +15,11 @@ import com.galib.kaizokuani.ui.icons.ExploreIcon
 import com.galib.kaizokuani.ui.icons.PersonIcon
 
 @Composable
-fun BottomNavigationComponent(onClick: (Int) -> Unit) {
+fun BottomNavigationComponent(onClick: (String) -> Unit) {
     var selected by rememberSaveable { mutableStateOf(0) }
     val items = listOf<BottomNavigationItem>(
-        BottomNavigationItem("Explore", "Search Anime", ExploreIcon),
-        BottomNavigationItem("Profile", "History and Settings", PersonIcon)
+        BottomNavigationItem("/", "Explore", "Search Anime", ExploreIcon),
+        BottomNavigationItem("/profile", "Profile", "History and Settings", PersonIcon)
     )
     NavigationBar(
         containerColor = MaterialTheme.colorScheme.surface,
@@ -30,9 +30,13 @@ fun BottomNavigationComponent(onClick: (Int) -> Unit) {
                 selected = selected == index,
                 onClick = {
                     selected = index
-                    onClick(index)
+                    onClick(item.url)
                 },
-                icon = { Icon(item.icon, contentDescription = item.description) },
+                icon = { Icon(
+                    item.icon,
+                    contentDescription = item.description,
+                    tint = MaterialTheme.colorScheme.primary
+                ) },
                 label = { Text(text = item.label) }
             )
         }
@@ -40,6 +44,7 @@ fun BottomNavigationComponent(onClick: (Int) -> Unit) {
 }
 
 data class BottomNavigationItem(
+    val url: String,
     val label: String,
     val description: String,
     val icon: ImageVector

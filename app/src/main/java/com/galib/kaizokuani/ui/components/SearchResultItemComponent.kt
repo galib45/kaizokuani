@@ -16,21 +16,17 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.galib.kaizokuani.data.AnimeSearchResult
-import com.galib.kaizokuani.data.AppData
+import com.galib.kaizokuani.data.AppDataManager
 
 @Composable
 fun SearchResultItemComponent(item: AnimeSearchResult, onNavigateToInfoScreen: (String) -> Unit) {
     var showEnglishName by rememberSaveable { mutableStateOf(false) }
-    val context = LocalContext.current
 
     LaunchedEffect(Unit) {
-        AppData.getShowEnglishName(context).collect {
-            showEnglishName = it
-        }
+        showEnglishName = AppDataManager.appData.value.showEnglishName
     }
 
     Column(
