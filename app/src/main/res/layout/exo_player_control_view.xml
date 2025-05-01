@@ -83,14 +83,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
-        <TextView
-            android:id="@+id/exo_title"
-            android:layout_gravity="center"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            />
+<!--        <TextView-->
+<!--            android:id="@+id/exo_title"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:textSize="20sp"-->
+<!--            />-->
 
     </LinearLayout>
 

@@ -9,6 +9,7 @@ import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.update
 
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "appdata")
 
@@ -52,6 +53,22 @@ object AppDataManager {
 
     fun clearHistory() {
         _appData.value.searchHistory.clear()
+    }
+
+    fun addProgressEntry(id: String, episodeNo: String, translationType: String, contentPosition: Long) {
+        _appData.update { currentData ->
+            val animeProgressData = currentData.animeProgressData
+            var animeProgress = animeProgressData.get(id) ?: AnimeProgress()
+            if (translationType == "dub") {
+                animeProgress.playedEpisodesDub.add(episodeNo)
+                animeProgress.lastPlayedDub = LastPlayedEpisode(episodeNo, contentPosition)
+            } else {
+                animeProgress.playedEpisodesSub.add(episodeNo)
+                animeProgress.lastPlayedSub = LastPlayedEpisode(episodeNo, contentPosition)
+            }
+            animeProgressData.put(id, animeProgress)
+            currentData.copy(animeProgressData = animeProgressData)
+        }
     }
 }
 

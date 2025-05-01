@@ -73,4 +73,5 @@ data class AnimeProgress(
 data class AppData(
     val searchHistory: MutableSet<String> = mutableSetOf(),
     var showEnglishName: Boolean = false,
+    val animeProgressData: HashMap<String, AnimeProgress> = hashMapOf()
 )
